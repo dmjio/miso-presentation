@@ -268,16 +268,14 @@ Consruct map when nothing matches
 ### Events
 ```haskell
 view = button [ onClick SayHello ] [ text "Say hello" ]
-```
 
-```haskell
+-- | `onClick` defintion
 onClick = onWithOptions "click" defaultOptions emptyDecoder $ \() -> SayHello
 ```
 
 ---
 
 ### Event decodiing
- - Keep it simple
  - Turn event into JSON, [parse it in Haskell](https://github.com/dmjio/miso/blob/master/jsbits/delegate.js#L101)
 
 ```haskell
@@ -326,8 +324,7 @@ onWithOptions options eventName Decoder{..} toAction =
   - We build a stack from event `target` to body
   - Index into VDOM with this stack to find pure Haskell handler
 	- Annotating our VDom with an impure type is clean event delegation.
-  - Only uses one `addEventListener`
-  - Mitigates potential space leaks
+  - Adds many listeners to a single DOM node
 
 ---
 
@@ -346,20 +343,20 @@ onWithOptions options eventName Decoder{..} toAction =
 
 ---
 
-### Miso Dogma
-  - Keep the view pure
-    - `IO` in view violates separation of concerns
-    - Produces spaghetti code
-	- Kills isomorphic js
-
----
-
 ### Philosophy
  - Resist the urge for premature abstraction
   - Free Monad DSL for events, runs into the expression problem
   - If you don’t know if its needed, don’t use it
   - Consider dependency implications
   - Consider build problems / issues
+
+---
+
+### Philosophy
+  - Keep the view pure
+    - `IO` in view violates separation of concerns
+    - Produces spaghetti code
+	- Kills isomorphic js
 
 ---
 
