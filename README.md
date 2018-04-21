@@ -170,8 +170,7 @@ diff :: VTree action -> VTree action -> Body -> IO ()
 ---
 
 ### Null handling
-- Account for tree deletion
-- Account for tree creation
+- Account for tree deletion / creation
 ```haskell
 diff :: Maybe (VTree action) -> Maybe (VTree action) -> Body -> IO ()
 ```
@@ -251,18 +250,16 @@ Consruct map when nothing matches
 
 ### Miso diffs in JS
  - Miso is a shallow-embedded DSL
-   - [`node` function] (https://github.com/dmjio/miso/blob/master/ghcjs-src/Miso/Html/Internal.hs#L115)
+   - [node](https://github.com/dmjio/miso/blob/master/ghcjs-src/Miso/Html/Internal.hs#L115)
  - Terms of host language translated directly to target language
    - Better for debugging
    - More control
    - More speed
- - GHC + GHCJS compilation pipelines not trivial to optimize
-   - Optimizations simpler in target language than host
 
 ---
 
 ### Can we trust?
- - Coverage (https://coverage.haskell-miso.org)
+ - [Coverage](http://coverage.haskell-miso.org)
  - [Tests](https://user-images.githubusercontent.com/875324/39086001-4298f7ea-4540-11e8-8f74-82cd2175f3aa.jpg)
  - jsverify, future verification
 
