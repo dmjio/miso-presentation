@@ -11,6 +11,23 @@ A tasty haskell web framework
    - Like Elm, but with typeclasses, better FFI
 ---
 
+### Philosophy
+ - Resist the urge for premature abstraction
+  - Free Monad DSL for events, runs into the expression problem
+  - If you don’t know if its needed, don’t use it
+  - Consider dependency implications
+  - Consider build problems / issues
+
+---
+
+### Philosophy
+  - Keep the view pure
+    - `IO` in view violates separation of concerns
+    - Produces spaghetti code
+	- Kills isomorphic js
+
+---
+
 ####  What is the Elm architecture?
 
 ---
@@ -121,6 +138,20 @@ data VTree action where
 		   , vTextNode :: IORef JSVal -- ^ pointer to DOM reference
 		   } -> VTree action
   deriving Functor
+```
+
+---
+
+### JS Virtual DOM
+
+```javascript
+var vtree = { vtype : "vnode"
+            , type : "div"
+            , ns : "html"
+            , children : []
+            , props : {}
+            , ref : <DOMElement>
+			}
 ```
 
 ---
@@ -275,6 +306,20 @@ onClick = onWithOptions "click" defaultOptions emptyDecoder $ \() -> SayHello
 
 ---
 
+### Event path
+```javascript
+function buildTargetToElement (element, target) {
+    var stack = [];
+    while (element !== target) {
+      stack.unshift (target);
+      target = target.parentNode;
+    }
+    return stack;
+}
+```
+
+---
+
 ### Event decodiing
  - Turn event into JSON, [parse it in Haskell](https://github.com/dmjio/miso/blob/master/jsbits/delegate.js#L101)
 
@@ -340,23 +385,6 @@ onWithOptions options eventName Decoder{..} toAction =
   - For SEO and increased page load speed.
   - Works with javascript disabled
   - Copy pointers from DOM to virtual DOM.
-
----
-
-### Philosophy
- - Resist the urge for premature abstraction
-  - Free Monad DSL for events, runs into the expression problem
-  - If you don’t know if its needed, don’t use it
-  - Consider dependency implications
-  - Consider build problems / issues
-
----
-
-### Philosophy
-  - Keep the view pure
-    - `IO` in view violates separation of concerns
-    - Produces spaghetti code
-	- Kills isomorphic js
 
 ---
 
