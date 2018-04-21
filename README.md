@@ -24,7 +24,6 @@ A tasty haskell web framework
   - Keep the view pure
     - `IO` in view violates separation of concerns
     - Produces spaghetti code
-	- Kills isomorphic js
 
 ---
 
