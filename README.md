@@ -306,20 +306,6 @@ onClick = onWithOptions "click" defaultOptions emptyDecoder $ \() -> SayHello
 
 ---
 
-### Event path
-```javascript
-function buildTargetToElement (element, target) {
-    var stack = [];
-    while (element !== target) {
-      stack.unshift (target);
-      target = target.parentNode;
-    }
-    return stack;
-}
-```
-
----
-
 ### Event decodiing
  - Turn event into JSON, [parse it in Haskell](https://github.com/dmjio/miso/blob/master/jsbits/delegate.js#L101)
 
@@ -371,6 +357,19 @@ onWithOptions options eventName Decoder{..} toAction =
 	- Annotating our VDom with an impure type is clean event delegation.
   - Adds many listeners to a single DOM node
 
+---
+
+### Event path
+```javascript
+function buildTargetToElement (element, target) {
+    var stack = [];
+    while (element !== target) {
+      stack.unshift (target);
+      target = target.parentNode;
+    }
+    return stack;
+}
+```
 ---
 
 ### Event batching
