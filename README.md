@@ -81,10 +81,10 @@ viewModel x = div_ [] [
 main :: IO ()
 main = startApp App { model = 0
                     , update = updateModel
-					, view = viewModel
+                    , view = viewModel
                     , events = M.singleton "click" False
                     , mountPoint = Nothing
-					, subs = []
+                    , subs = []
 					}
 ```
 
